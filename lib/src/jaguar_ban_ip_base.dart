@@ -31,7 +31,7 @@ class IPFilterOptions {
 
   const IPFilterOptions(this.blockedIPs,
       {this.allowedIPs,
-        /* TODO this.allowedCountries,
+      /* TODO this.allowedCountries,
       this.blockedCountries, */
       this.blockByDefault,
       this.message = "Forbidden!"});
@@ -115,15 +115,6 @@ class CompiledIPFilter {
   bool isIPBlocked(String ip) => !isIPAllowed(ip);
 }
 
-/// Wraps [IPFilter] that filters requests based on IP addresses
-class WrapIPFilter extends RouteWrapper<IPFilter> {
-  final IPFilterOptions options;
-
-  const WrapIPFilter(this.options);
-
-  IPFilter createInterceptor() => new IPFilter(options.compile());
-}
-
 /// An interceptor to filter requests based on IP addresses
 ///
 /// The interceptor is configured using [options]
@@ -134,9 +125,9 @@ class IPFilter extends Interceptor {
 
   IPFilter(this.options);
 
-  void pre(Request req) {
+  void pre(Context ctx) {
     //TODO also check X-Fowarded-For and friends
-    final String ip = req.connectionInfo.remoteAddress.address;
+    final String ip = ctx.req.connectionInfo.remoteAddress.address;
     if (!options.isIPAllowed(ip)) {
       throw new IPBannedError(options.message);
     }
