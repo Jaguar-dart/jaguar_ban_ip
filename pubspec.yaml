@@ -1,6 +1,6 @@
 name: jaguar_ban_ip
 description: Interceptors and functions to filter requests based on IP addresses
-version: 0.1.0
+version: 0.1.1
 authors:
 - Ravi Teja Gudapati <tejainece@gmail.com>
 homepage: http://jaguar-dart.github.io
