@@ -2,7 +2,6 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'package:jaguar/jaguar.dart';
-import 'package:jaguar_reflect/jaguar_reflect.dart';
 import 'package:jaguar_ban_ip/jaguar_ban_ip.dart';
 
 @Api(path: '/api')
@@ -17,7 +16,7 @@ class ExampleApi {
 }
 
 main() async {
-  Jaguar server = new Jaguar();
-  server.addApi(reflectJaguar(new ExampleApi()));
+  final server = new Jaguar();
+  server.addApiReflected(new ExampleApi());
   await server.serve();
 }
